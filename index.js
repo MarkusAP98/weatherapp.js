@@ -48,7 +48,6 @@ function fetchWeather(cityName) {
     .then((data) => {
       const tempInCelsius = data.main.temp - 273.15;
       const weatherCondition = data.weather[0].main;
-      const weatherDescription = data.weather[0].description;
       const windSpeed = data.wind.speed;
 
       // Set the background color based on the temperature
@@ -79,7 +78,7 @@ function fetchWeather(cityName) {
       }
       // Update the weather data in the UI
       document.getElementById("weather-data").innerHTML = `
-    <div class='temperature'>🌡️ ${tempInCelsius.toFixed(2)}°C</div><br>
+    <div class='temperature'> ${tempInCelsius.toFixed(2)}°C</div><br>
     💧 ${data.main.humidity}%<br>
     ${weatherEmoji} ${weatherCondition}<br>
     🌬️ ${windSpeed} m/s
