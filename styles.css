@@ -36,8 +36,7 @@ h1 {
   color: white;
   text-align: center;
   text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
-}
-h2 {
+}h2 {
   font-family: "Montserrat", sans-serif;
   font-weight: 800; /* Increase font weight */
   font-size: 1.5em; /* Increase font size */
@@ -67,7 +66,7 @@ h2 {
   width: 100%;
   padding: 10px;
   margin-bottom: 15px; /* Increase bottom margin */
-  background-color: #4caf50;
+  background-color: #00fe08;
   color: white;
   border: none;
   cursor: pointer;
@@ -77,7 +76,7 @@ h2 {
 }
 
 #get-weather:hover {
-  background-color: #45a049;
+  background-color: #0ae915;
   transform: scale(1.05); /* Scale the button up to 105% when hovered over */
 }
 
@@ -89,7 +88,7 @@ h2 {
 }
 
 .temperature {
-  font-size: 4em; /* Adjust this value to change the size */
+  font-size: 2em; /* Adjust this value to change the size */
   font-weight: 500; /* Increase font weight */
   margin: 20px 0; /* Add space around the text */
 }
