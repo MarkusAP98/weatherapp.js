@@ -36,7 +36,8 @@ h1 {
   color: white;
   text-align: center;
   text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
-}h2 {
+}
+h2 {
   font-family: "Montserrat", sans-serif;
   font-weight: 800; /* Increase font weight */
   font-size: 1.5em; /* Increase font size */
@@ -90,6 +91,11 @@ h1 {
 .temperature {
   font-size: 2em; /* Adjust this value to change the size */
   font-weight: 500; /* Increase font weight */
+  margin: 20px 0; /* Add space around the text */
+}
+.tempInCelsius {
+  font-size: 2em; /* Adjust this value to change the size */
+  font-weight: 600; /* Increase font weight */
   margin: 20px 0; /* Add space around the text */
 }
 #clouds1,
