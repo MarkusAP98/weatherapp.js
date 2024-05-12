@@ -10,6 +10,34 @@ body {
   color: #333;
 }
 
+#sun-icon {
+  position: fixed;
+  top: 0px;
+  right: 0px;
+  font-size: 10em;
+  color: #ff0;
+  animation: spin 20s linear infinite, shine 5s infinite;
+  z-index: -1;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+@keyframes shine {
+  0%,
+  100% {
+    text-shadow: 0 0 10px #ff0, 0 0 20px #ff0, 0 0 30px #ff0, 0 0 40px #ff0;
+  }
+  50% {
+    text-shadow: 0 0 20px #ff0, 0 0 30px #ff0, 0 0 40px #ff0, 0 0 50px #ff0,
+      0 0 60px #ff0;
+  }
+}
 h1 {
   font-family: "Montserrat", sans-serif;
   font-weight: 800; /* Increase font weight */
@@ -20,11 +48,11 @@ h1 {
 }
 
 #app {
-  width: 300px;
-  padding: 20px;
-  background-color: lightblue;
-  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
-  border-radius: 5px;
+  border: 2px solid aqua; /* Add a 2px solid border */
+  border-radius: 10px; /* Round the corners */
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Add a subtle shadow */
+  background-color: rgba(144, 238, 144, 0.7);
+  padding: 20px; /* Add some space around the content */
 }
 
 #city-input {
@@ -65,4 +93,32 @@ h1 {
   font-size: 2em; /* Adjust this value to change the size */
   font-weight: 500; /* Increase font weight */
   margin: 20px 0; /* Add space around the text */
+}
+#clouds1, #clouds2 {
+  position: fixed;
+  font-size: 10em;
+  animation-duration: 85s;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+  z-index: -1;
+}
+
+#clouds1 {
+  top: 25%;
+  animation-name: moveClouds1;
+}
+
+#clouds2 {
+  top: 15%;
+  animation-name: moveClouds2;
+}
+
+@keyframes moveClouds1 {
+  0% { left: -15%; }
+  100% { left: 115%; }
+}
+
+@keyframes moveClouds2 {
+  0% { left: 115%; }
+  100% { left: -15%; }
 }

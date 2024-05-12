@@ -84,6 +84,12 @@ function fetchWeather(cityName) {
     ${weatherEmoji} ${weatherCondition}<br>
     🌬️ ${windSpeed} m/s
   `;
+      // Show or hide the sun icon based on the weather condition
+      if (weatherCondition === 'Clear') {
+        document.getElementById('sun-icon').style.display = 'inline';
+      } else {
+        document.getElementById('sun-icon').style.display = 'none';
+      }
       // Restore the button text and enable the button when done
       document.getElementById("get-weather").innerHTML = "Get Weather";
       document.getElementById("get-weather").disabled = false;
