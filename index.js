@@ -43,11 +43,11 @@ function fetchWeather(cityName) {
     ${weatherEmoji} ${weatherCondition}<br>
     🌬️ ${windSpeed} m/s
   `;
-
       // Restore the button text and enable the button when done
       document.getElementById("get-weather").innerHTML = "Get Weather";
       document.getElementById("get-weather").disabled = false;
     })
+    
     .catch((error) => {
       console.log(error);
       // Display the error message in the UI
