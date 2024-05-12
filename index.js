@@ -1,3 +1,5 @@
+const cityInput = document.getElementById("city-input");
+const getWeatherButton = document.getElementById("get-weather");
 // Fetch the weather data for a city
 function fetchWeather(cityName) {
   fetch(
@@ -7,51 +9,49 @@ function fetchWeather(cityName) {
   )
     .then((response) => response.json())
     .then((data) => {
-      var tempInCelsius = data.main.temp - 273.15;
-      var weatherCondition = data.weather[0].main;
-      var weatherDescription = data.weather[0].description;
+      const tempInCelsius = data.main.temp - 273.15;
+      const weatherCondition = data.weather[0].main;
+      const weatherDescription = data.weather[0].description;
+      const windSpeed = data.wind.speed;
+      // Map weather conditions to emojis
+      let weatherEmoji;
+      switch (weatherCondition) {
+        case "Clear":
+          weatherEmoji = "☀️";
+          break;
+        case "Clouds":
+          weatherEmoji = "☁️";
+          break;
+        case "Rain":
+        case "Drizzle":
+        case "Mist":
+          weatherEmoji = "🌧️";
+          break;
+        case "Thunderstorm":
+          weatherEmoji = "⛈️";
+          break;
+        case "Snow":
+          weatherEmoji = "❄️";
+          break;
+        default:
+          weatherEmoji = "";
+      }
 
-       // Map weather conditions to emojis
-       var weatherEmoji;
-       switch (weatherCondition) {
-         case "Clear":
-           weatherEmoji = "☀️";
-           break;
-         case "Clouds":
-           weatherEmoji = "☁️";
-           break;
-         case "Rain":
-         case "Drizzle":
-         case "Mist":
-           weatherEmoji = "🌧️";
-           break;
-         case "Thunderstorm":
-           weatherEmoji = "⛈️";
-           break;
-         case "Snow":
-           weatherEmoji = "❄️";
-           break;
-         default:
-           weatherEmoji = "";
-       }
+      document.getElementById("weather-data").innerHTML = `
+    <div class='temperature'>🌡️ ${tempInCelsius.toFixed(2)}°C</div><br>
+    💧 ${data.main.humidity}%<br>
+    ${weatherEmoji} ${weatherCondition}<br>
+    🌬️ ${windSpeed} m/s
+  `;
 
-      document.getElementById("weather-data").innerHTML =
-  "🌡️ Temperature: " +
-  tempInCelsius.toFixed(2) +
-  "°C<br> 💧 Humidity: " +
-  data.main.humidity +
-  "%<br> " + weatherEmoji + " Condition: " +
-  weatherCondition +
-  " (" +
-  weatherDescription +
-  ")";
       // Restore the button text and enable the button when done
       document.getElementById("get-weather").innerHTML = "Get Weather";
       document.getElementById("get-weather").disabled = false;
     })
     .catch((error) => {
-      alert("🚫 City not found!");
       console.log(error);
+      // Display the error message in the UI
+      document.getElementById("weather-data").innerHTML = "🚫 City not found!";
       // Restore the button text and enable the button when an error occurs
       document.getElementById("get-weather").innerHTML = "Get Weather";
       document.getElementById("get-weather").disabled = false;
@@ -59,16 +59,14 @@ function fetchWeather(cityName) {
 }
 
 // When the page loads, check if there's a city name in local storage
-window.onload = function() {
-  var cityName = localStorage.getItem('city');
+window.onload = function () {
+  const cityName = localStorage.getItem("city");
   if (cityName) {
     document.getElementById("city-input").value = cityName;
     fetchWeather(cityName);
   }
 };
 
-const cityInput = document.getElementById("city-input");
-const getWeatherButton = document.getElementById("get-weather");
 
 getWeatherButton.addEventListener("click", () => {
   const cityName = cityInput.value;
@@ -77,10 +75,19 @@ getWeatherButton.addEventListener("click", () => {
   getWeatherButton.disabled = true;
   fetchWeather(cityName);
 });
+cityInput.addEventListener("keyup", function (event) {
+  // Number 13 is the "Enter" key on the keyboard
+  if (event.key === "Enter") {
+    // Cancel the default action, if needed
+    event.preventDefault();
+    // Trigger the button element with a click
+    getWeatherButton.click();
+  }
+});
 
 // Fetch the weather data every 10 minutes
-setInterval(function() {
-  var cityName = localStorage.getItem('city');
+setInterval(function () {
+  var cityName = localStorage.getItem("city");
   if (cityName) {
     fetchWeather(cityName);
   }

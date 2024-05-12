@@ -13,7 +13,8 @@ body {
 h1 {
   font-family: "Montserrat", sans-serif;
   font-weight: 800; /* Increase font weight */
-  color: #4caf50;
+  font-size: 2.5em; /* Increase font size */
+  color: white;
   text-align: center;
   text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
 }
@@ -21,7 +22,7 @@ h1 {
 #app {
   width: 300px;
   padding: 20px;
-  background-color: white;
+  background-color: lightblue;
   box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
   border-radius: 5px;
 }
@@ -58,4 +59,10 @@ h1 {
   font-size: 1.2em;
   font-weight: 500; /* Increase font weight */
   text-align: center; /* Center the text */
+}
+
+.temperature {
+  font-size: 2em; /* Adjust this value to change the size */
+  font-weight: 500; /* Increase font weight */
+  margin: 20px 0; /* Add space around the text */
 }
