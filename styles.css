@@ -16,7 +16,8 @@ body {
   right: 0px;
   font-size: 10em;
   color: #ff0;
-  animation: spin 20s linear infinite, shine 5s infinite;
+  animation: spin 20s linear infinite;
+  text-shadow: 0 0 10px #ff0, 0 0 20px #ff0, 0 0 30px #ff0, 0 0 40px #ff0; /* Add a static glow */
   z-index: -1;
 }
 
@@ -26,16 +27,6 @@ body {
   }
   100% {
     transform: rotate(360deg);
-  }
-}
-@keyframes shine {
-  0%,
-  100% {
-    text-shadow: 0 0 10px #ff0, 0 0 20px #ff0, 0 0 30px #ff0, 0 0 40px #ff0;
-  }
-  50% {
-    text-shadow: 0 0 20px #ff0, 0 0 30px #ff0, 0 0 40px #ff0, 0 0 50px #ff0,
-      0 0 60px #ff0;
   }
 }
 h1 {
