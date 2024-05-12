@@ -1,16 +1,40 @@
-function getImageForTemperature(tempInCelsius) {
-  if (tempInCelsius < 0) {
-    return 'assets/winter.png';
-  } else if (tempInCelsius < 10) {
-    return 'images/cool.jpg';
-  } else if (tempInCelsius < 15) {
-    return 'images/warm.jpg';
-  } else if (tempInCelsius < 20) {
-    return 'images/hot.jpg';
+function getColorForTemperature(tempInCelsius) {
+  const coldThreshold = 5; // Below this temperature, the color will be blue
+  const normalThreshold = 10; // Between coldThreshold and normalThreshold, the color will be light blue
+  const hotThreshold = 20; // Between normalThreshold and hotThreshold, the color will be orange
+  const superHotThreshold = 28; // Above superHotThreshold, the color will be red
+
+  let red, green, blue;
+  if (tempInCelsius <= coldThreshold) {
+    red = 0;
+    green = 0;
+    blue = 255;
+  } else if (tempInCelsius <= normalThreshold) {
+    const ratio =
+      (tempInCelsius - coldThreshold) / (normalThreshold - coldThreshold);
+    red = 0;
+    green = Math.round(ratio * 255);
+    blue = 255;
+  } else if (tempInCelsius <= hotThreshold) {
+    const ratio =
+      (tempInCelsius - normalThreshold) / (hotThreshold - normalThreshold);
+    red = Math.round(ratio * 255);
+    green = 255;
+    blue = Math.round((1 - ratio) * 255);
   } else {
-    return 'images/superHot.jpg';
+    const ratio = Math.min(
+      (tempInCelsius - hotThreshold) / (superHotThreshold - hotThreshold),
+      1
+    );
+    red = 255;
+    green = Math.round((1 - ratio) * 255);
+    blue = 0;
   }
+
+  // Return the color as a CSS RGB value
+  return `rgb(${red}, ${green}, ${blue})`;
 }
+
 const cityInput = document.getElementById("city-input");
 const getWeatherButton = document.getElementById("get-weather");
 // Fetch the weather data for a city
@@ -27,6 +51,9 @@ function fetchWeather(cityName) {
       const weatherDescription = data.weather[0].description;
       const windSpeed = data.wind.speed;
 
+      // Set the background color based on the temperature
+      document.body.style.backgroundColor =
+        getColorForTemperature(tempInCelsius);
       // Map weather conditions to emojis
       let weatherEmoji;
       switch (weatherCondition) {
@@ -50,7 +77,7 @@ function fetchWeather(cityName) {
         default:
           weatherEmoji = "";
       }
-   // Update the weather data in the UI
+      // Update the weather data in the UI
       document.getElementById("weather-data").innerHTML = `
     <div class='temperature'>🌡️ ${tempInCelsius.toFixed(2)}°C</div><br>
     💧 ${data.main.humidity}%<br>
@@ -63,9 +90,10 @@ function fetchWeather(cityName) {
     })
 
     .catch((error) => {
-      console.log('Error:', error);
+      console.log("Error:", error);
       // Display a generic error message in the UI
-      document.getElementById("weather-data").innerHTML = "🚫 An error occurred!";
+      document.getElementById("weather-data").innerHTML =
+        "🚫 An error occurred!";
       // Restore the button text and enable the button when an error occurs
       document.getElementById("get-weather").innerHTML = "Get Weather";
       document.getElementById("get-weather").disabled = false;
