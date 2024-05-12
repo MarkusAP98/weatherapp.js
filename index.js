@@ -1,9 +1,22 @@
-function getColorForTemperature(tempInCelsius) {
-  const coldThreshold = 5; // Below this temperature, the color will be blue
-  const normalThreshold = 10; // Between coldThreshold and normalThreshold, the color will be light blue
-  const hotThreshold = 20; // Between normalThreshold and hotThreshold, the color will be orange
-  const superHotThreshold = 28; // Above superHotThreshold, the color will be red
+function getColorFortempInCelsius (tempInCelsius) {
+  let h2Element = document.querySelector('h2'); 
+  const coldThreshold = 7; // Below this tempInCelsius , the color will be blue
+  const normalThreshold = 15; // Between coldThreshold and normalThreshold, the color will be light blue
+  const hotThreshold = 25; // Between normalThreshold and hotThreshold, the color will be orange
+  const superHotThreshold = 30; // Above superHotThreshold, the color will be red
 
+  if (tempInCelsius  < coldThreshold) {
+    h2Element.textContent = 'Cold 🥶';
+  } else if (tempInCelsius  < normalThreshold) {
+    h2Element.textContent = 'Normal 😁';
+  } else if (tempInCelsius  < hotThreshold) {
+    h2Element.textContent = 'Warm 😅';
+  } else if (tempInCelsius  < superHotThreshold) {
+    h2Element.textContent = 'Hot 🥵';
+  } else {
+    h2Element.textContent = 'Extreme Hot🔥';
+  }
+  
   let red, green, blue;
   if (tempInCelsius <= coldThreshold) {
     red = 0;
@@ -50,9 +63,9 @@ function fetchWeather(cityName) {
       const weatherCondition = data.weather[0].main;
       const windSpeed = data.wind.speed;
 
-      // Set the background color based on the temperature
+      // Set the background color based on the tempInCelsius 
       document.body.style.backgroundColor =
-        getColorForTemperature(tempInCelsius);
+        getColorFortempInCelsius (tempInCelsius);
       // Map weather conditions to emojis
       let weatherEmoji;
       switch (weatherCondition) {
@@ -78,7 +91,7 @@ function fetchWeather(cityName) {
       }
       // Update the weather data in the UI
       document.getElementById("weather-data").innerHTML = `
-    <div class='temperature'> ${tempInCelsius.toFixed(2)}°C</div><br>
+    <div class='tempInCelsius'> ${tempInCelsius.toFixed(2)}°C</div><br>
     💧 ${data.main.humidity}%<br>
     ${weatherEmoji} ${weatherCondition}<br>
     🌬️ ${windSpeed} m/s
